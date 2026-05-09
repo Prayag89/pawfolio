@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 /**
- * About — Project information and developer profile page.
- * Showcases the tech stack and architecture decisions.
+ * About — Personal "About Me" page + project tech details.
+ * The hackathon spec asks for an "About Me" page specifically.
  */
 export default function About() {
   const techStack = [
@@ -39,38 +39,70 @@ export default function About() {
     },
   ];
 
-  const features = [
-    'Responsive grid layout (1 / 2 / 4 columns)',
-    'Custom usePets hook with loading, error, and empty states',
-    'Debounced search filtering by title and description',
-    'Multi-criteria sorting (name A-Z/Z-A, date newest/oldest)',
-    'Persistent selection across route navigation',
-    'Batch download with estimated file size',
-    'Paginated gallery with smart page numbers',
-    'Lazy-loaded images with skeleton shimmer',
-    'Keyboard-accessible selection checkboxes',
-    'Detail view with sticky image layout',
-  ];
-
   return (
     <Page>
       <Content>
-        <Tag>About</Tag>
+        {/* ── About Me Section ── */}
+        <Tag>About Me</Tag>
         <Title>
-          Built with care,
-          <br />
-          <Accent>pixel by pixel</Accent>
+          Hi, I'm <Accent>Prayag</Accent> 👋
         </Title>
 
         <Intro>
-          Pawfolio is a front-end application that fetches pet data from the
-          Eulerity API, presenting it in an interactive gallery. Users can
-          search, sort, select, and batch-download images — all wrapped in a
-          warm, editorial-inspired interface.
+          I'm a front-end developer who cares about clean architecture,
+          polished interfaces, and writing code that other developers
+          actually enjoy reading. I believe the best UIs feel invisible
+          — they get out of the way and let users focus on what matters.
         </Intro>
 
         <Section>
-          <SectionTitle>Tech Stack</SectionTitle>
+          <SectionTitle>What I Bring to a Team</SectionTitle>
+          <ValueGrid>
+            <ValueCard>
+              <ValueIcon>🏗️</ValueIcon>
+              <ValueName>Architecture First</ValueName>
+              <ValueDetail>
+                I plan before I code. Types, folder structure, and data flow
+                come before the first component. This project uses a custom
+                hook + Context pattern that keeps pages clean and state
+                predictable.
+              </ValueDetail>
+            </ValueCard>
+            <ValueCard>
+              <ValueIcon>🎨</ValueIcon>
+              <ValueName>Design Sensibility</ValueName>
+              <ValueDetail>
+                I care about typography, spacing, and micro-interactions.
+                This app uses Playfair Display + DM Sans, a warm earthy
+                palette, and deliberate animations — not default Bootstrap.
+              </ValueDetail>
+            </ValueCard>
+            <ValueCard>
+              <ValueIcon>♿</ValueIcon>
+              <ValueName>Accessibility</ValueName>
+              <ValueDetail>
+                Keyboard navigation, aria labels, semantic HTML, and
+                focus states aren't afterthoughts — they're built in from
+                the start. The selection checkboxes here work with Enter
+                and Space keys.
+              </ValueDetail>
+            </ValueCard>
+            <ValueCard>
+              <ValueIcon>📐</ValueIcon>
+              <ValueName>Attention to Detail</ValueName>
+              <ValueDetail>
+                Debounced search, skeleton loaders, error boundaries,
+                staggered animations, responsive breakpoints at 640px
+                and 1024px — the small things that separate "works" from
+                "works well."
+              </ValueDetail>
+            </ValueCard>
+          </ValueGrid>
+        </Section>
+
+        {/* ── Project Tech Section ── */}
+        <Section>
+          <SectionTitle>Tech Stack Used</SectionTitle>
           <TechGrid>
             {techStack.map((tech) => (
               <TechCard key={tech.name}>
@@ -80,18 +112,6 @@ export default function About() {
               </TechCard>
             ))}
           </TechGrid>
-        </Section>
-
-        <Section>
-          <SectionTitle>Features</SectionTitle>
-          <FeatureList>
-            {features.map((feature, i) => (
-              <FeatureItem key={i}>
-                <FeatureDot />
-                {feature}
-              </FeatureItem>
-            ))}
-          </FeatureList>
         </Section>
 
         <Section>
@@ -110,21 +130,23 @@ export default function About() {
             <ArchText>
               usePets encapsulates all data-fetching logic, derived state
               (search + sort), and explicit loading/error handling in one
-              reusable unit — keeping page components focused on layout.
+              reusable unit — keeping page components focused on layout
+              and interaction.
             </ArchText>
           </ArchCard>
           <ArchCard>
             <ArchTitle>Why CSS variables + styled-components?</ArchTitle>
             <ArchText>
               CSS custom properties provide a single source of truth for
-              theming, while styled-components enable co-located,
-              prop-driven styles with full TypeScript support.
+              theming (easy to add dark mode later), while styled-components
+              enable co-located, prop-driven styles with full TypeScript
+              support and zero class name conflicts.
             </ArchText>
           </ArchCard>
         </Section>
 
         <CTASection>
-          <CTAText>Ready to explore?</CTAText>
+          <CTAText>Want to see it in action?</CTAText>
           <CTALink to="/">Browse the Gallery →</CTALink>
         </CTASection>
       </Content>
@@ -196,6 +218,45 @@ const SectionTitle = styled.h2`
   border-bottom: 1px solid var(--color-border);
 `;
 
+const ValueGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-md);
+`;
+
+const ValueCard = styled.div`
+  padding: var(--space-lg);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--duration-fast) var(--ease-out);
+
+  &:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+`;
+
+const ValueIcon = styled.span`
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: var(--space-sm);
+`;
+
+const ValueName = styled.h3`
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+`;
+
+const ValueDetail = styled.p`
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+`;
+
 const TechGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -233,30 +294,6 @@ const TechDetail = styled.p`
   font-size: 0.82rem;
   color: var(--color-text-muted);
   line-height: 1.4;
-`;
-
-const FeatureList = styled.ul`
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-sm) var(--space-xl);
-`;
-
-const FeatureItem = styled.li`
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-size: 0.9rem;
-  color: var(--color-text-secondary);
-  padding: var(--space-sm) 0;
-`;
-
-const FeatureDot = styled.span`
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  flex-shrink: 0;
 `;
 
 const ArchCard = styled.div`
